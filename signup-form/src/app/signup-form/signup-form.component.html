@@ -1,0 +1,63 @@
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="form">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input 
+                required
+                type="email"
+                class="form-control" 
+                [ngClass]="{'has-error': shouldShowErrorMessage('email')}"
+                formControlName="email" 
+                (focus)="onFocus('email')" 
+                (blur)="onBlur('email')">
+                <div *ngIf="shouldShowErrorMessage('email')" class="alert alert-danger">
+                    {{getErrorMessage('email')}}
+                </div>
+              </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <div class="input-group">
+                <input 
+                required
+                [type]="passwordVisible ? 'text' : 'password'" 
+                class="form-control" 
+                [ngClass]="{'has-error': shouldShowErrorMessage('password')}"
+                formControlName="password">
+                <div class="input-group-append input-group-text password-toggle">
+                    <i class="fa fa-eye" [ngClass]="{'fa-solid fa-eye': passwordVisible, 'fa-regular fa-eye-slash': !passwordVisible}" (click)="togglePasswordVisibility('password')"></i>
+                </div>
+              </div>
+              <div *ngIf="shouldShowErrorMessage('password')" class="alert alert-danger">
+                {{getErrorMessage('password')}}
+
+              </div>
+            </div>
+          
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password:</label>
+              <div class="input-group">
+                <input
+                 [type]="confirmPasswordVisible ? 'text' : 'password'" 
+                 class="form-control" 
+                 formControlName="confirmPassword"
+                 [ngClass]="{'has-error': shouldShowErrorMessage('confirmPassword')}"
+                 required>
+                <div class="input-group-append input-group-text password-toggle">
+                    <i class="fa fa-eye" [ngClass]="{'fa-solid fa-eye': confirmPasswordVisible, 'fa-regular fa-eye-slash': !confirmPasswordVisible}" (click)="togglePasswordVisibility('confirmPassword')"></i>
+                </div>
+              </div>
+              <div *ngIf="shouldShowErrorMessage('confirmPassword')" class="alert alert-danger">
+                {{getErrorMessage('confirmPassword')}}
+              </div>
+            </div>
+          
+            <button type="submit" [disabled]="errorMessage" class="btn btn-primary" [ngClass]="{'disabled-button': errorMessage}">Signup</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+          
+            <div class="alert alert-warning" *ngIf="errorMessage">{{ errorMessage }}</div>
+          </form>
+      </div>
+    </div>
+  </div>
